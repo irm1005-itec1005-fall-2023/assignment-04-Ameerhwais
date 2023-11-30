@@ -41,3 +41,55 @@ function inititialise() {
 // Inits & Event Listeners
 //
 inititialise();
+
+if (todos.length === 0) {
+  emptyState.style.display = 'block';
+} else {
+  emptyState.style.display = 'none';
+  todos.forEach(todo => {
+      const listItem = document.createElement('li');
+      listItem.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+      listItem.innerHTML = `
+          <span>${todo.text}</span>
+          <button onclick="toggleTodoStatus(${todo.id})">Done</button>
+          <button onclick="deleteTodo(${todo.id})">Delete</button>
+      `;
+      todoList.appendChild(listItem);
+  });
+}
+
+
+function addTodo() {
+const todoInput = document.getElementById('todoInput');
+const todoText = todoInput.value.trim();
+
+if (todoText !== '') {
+  const newTodo = {
+      id: todos.length + 1,
+      text: todoText,
+      completed: false,
+  };
+
+  todos.push(newTodo);
+  todoInput.value = '';
+  renderTodos();
+}
+}
+
+function toggleTodoStatus(todoId) {
+const todoIndex = todos.findIndex(todo => todo.id === todoId);
+
+if (todoIndex !== -1) {
+  todos[todoIndex].completed = !todos[todoIndex].completed;
+  renderTodos();
+}
+}
+
+function deleteTodo(todoId) {
+todos = todos.filter(todo => todo.id !== todoId);
+renderTodos();
+}
+
+// Initial rendering
+renderTodos();
+
