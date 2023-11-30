@@ -11,7 +11,7 @@
 
 // Constants
 const appID = "app";
-const headingText = "To do. To done. ✅";
+const headingText = "Ameer's To Do List";
 
 // DOM Elements
 let appContainer = document.getElementById(appID);
